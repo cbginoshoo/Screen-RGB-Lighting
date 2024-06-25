@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Screen RGB Lighting</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: transparent;
+    overflow: hidden;
+  }
+  .video-container {
+    width: 75vw;
+    height: 75vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+  }
+  video {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+</head>
+<body>
+<div class="video-container">
+  <video id="screen" autoplay oncontextmenu="return false;"></video>
+</div>
+
+<script>
+const displayMediaOptions = {
+  video: {
+    cursor: "never"
+  },
+  audio: false
+};
+
+navigator.mediaDevices.getDisplayMedia(displayMediaOptions)
+  .then(stream => {
+    const videoElement = document.getElementById('screen');
+    videoElement.srcObject = stream;
+  })
+  .catch(error => {
+    console.error('Error accessing screen capture:', error);
+  });
+</script>
+</body>
+</html>
